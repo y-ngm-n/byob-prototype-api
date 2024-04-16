@@ -10,4 +10,4 @@ app.get("/", async (req, res) => {
   res.json(result);
 });
 
-app.listen(8000);
+app.listen(3000);
