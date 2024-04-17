@@ -1,7 +1,7 @@
 import { load } from "cheerio";
 import db from "../database";
 import type { Article, Item } from "../database";
-import { log } from "../lib/log";
+// import { log } from "../lib/log";
 
 const getArticles = async (): Promise<Article[]> => {
   const url = "https://www.customs.go.kr/kcs/ad/go/gongMeList.do";
@@ -106,7 +106,8 @@ export default {
     const newArticles = crawledArticles.filter(
       (article) => !savedArticleNos.includes(article.no)
     );
-    log(`[crawler] new articles count: ${newArticles.length}`);
+    // log(`[crawler] new articles count: ${newArticles.length}`);
+    console.log(`[crawler] new articles count: ${newArticles.length}`);
 
     for (const article of newArticles) {
       db.articles.insert(article);
@@ -119,11 +120,13 @@ export default {
         newItems = newItems.concat(crawledItems);
         console.log("cur:", article.title, crawledItems.length);
       } catch (e) {
-        log(`[crawler] ${article.no}: ${article.title}`, "ERROR");
+        console.log(`[crawler] ${article.no}: ${article.title}`, "ERROR");
+        // log(`[crawler] ${article.no}: ${article.title}`, "ERROR");
       }
     }
 
-    log(`[crawler] crawled new items count: ${newItems.length}`);
+    // log(`[crawler] crawled new items count: ${newItems.length}`);
+    console.log(`[crawler] crawled new items count: ${newItems.length}`);
 
     newItems.sort((item1, item2) => item1.name.localeCompare(item2.name));
 
